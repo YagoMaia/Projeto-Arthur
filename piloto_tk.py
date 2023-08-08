@@ -11,6 +11,25 @@ condicoes = {
         }
 Procedimentos = ["Compressão torácica por 2 minutos", "Ventilação com AMBU", "Desfibrilação", "Toracocentese de alívio", "Pericardiocentese", "Intubação orotraqueal"]
 Medicações = ["Adrenalina", "Amiodarona", "Sulfato de magnésio", "Glucanato de cálcio", "Glico-insulina", "Bicarbonato de sódio", "Soro fisiológico", "Ringer lactato", "Cloreto de potássio"]
+Exames = ["Hemoglobina",
+"Leucograma",
+"Plaquetas",
+"Uréia",
+"Creatinina",
+"Potássio",
+"Sódio",
+"Magnésio",
+"Proteína C reativa",
+"Lactato",
+"pH",
+"Pco2",
+"Po2",
+"HCO3",
+"Base excess",
+"Saturação do oxigênio",
+"Raio X de tórax",
+"ECG"]
+
 
 listona = [Procedimentos, Medicações]
 
@@ -42,16 +61,21 @@ class Funcs():
     def ret_texto(self, text = "Foda"):
         print(text)
 
-    def clicked(self, event):
+    def clicked(self,  bnt, event,):
         btn_text = self.cget('text')
         message = Label(root, text=f'You clicked button "{btn_text}".')
         message.pack()
 
 class Main(Funcs):
     def __init__(self, master = None):
-        self.root = root    
+        self.root = root
+        self.largura = root.winfo_screenmmheight()
+        self.comprimento = root.winfo_screenmmwidth()    
         self.dividindo_tela()
-        self.criando_botoes()
+        #self.criando_botoes()
+        self.criando_frame()
+        self.criando_botoes2()
+        #root.configure(bg='black')
         root.mainloop()
     
     def dividindo_tela(self):
@@ -80,13 +104,37 @@ class Main(Funcs):
         self.center_center_Frame.grid(row=1, column=2)
 
     def criando_botoes(self):
-        self.btn1 = Button(self.center_center_Frame, text="Teste", bg='#DDD', width = 30, command=lambda text="btn-teste": self.ret_texto(text)) #Preciso definir o grid
-        #self.btn1.bind("<Button-1>", self.ret_texto(text = self.btn1['text']))
+        t1 = 'Teste'
+        self.btn1 = Button(self.center_center_Frame, text = t1, bg='#DDD', width = 30, command=lambda text=t1 : self.ret_texto(text)) #Preciso definir o grid
+        #self.btn1.bind("<Button-1>", )
         self.btn1.pack()
 
-        self.btn2 = Button(self.center_center_Frame, text="Algo", bg='#DDD', width = 30,command=lambda text="btn-novo": self.ret_texto(text), ) #Preciso definir o grid
-        self.btn2.bind("<Button-2>", self.clicked)
+        t2 = 'Algo'
+        self.btn2 = Button(self.center_center_Frame, text=t2, bg='#DDD', width = 30, command=lambda text = t2 : self.ret_texto(text)) #Preciso definir o grid
+        #self.btn2.config(command= self.clicked(btn =self.btn2))
+        #self.btn2.bind("<Button-1>", self.ret_texto) #
         self.btn2.pack()
+    
+    def criando_botoes2(self):
+        r = 1
+        for p in Procedimentos:
+            Button(self.center_left_Frame, text = p, bg='#DDD', width = 30, command=lambda text=p : self.ret_texto(text)).grid(row=r, column=1) #Preciso definir o grid
+            r+=1
+        r = 1
+        for m in Medicações:
+            Button(self.center_rigth_Frame, text = m, bg='#DDD', width = 30, command=lambda text=m : self.ret_texto(text)).grid(row=r, column=1) #Preciso definir o grid
+            r+=1
+        r = 1
+        for e in Exames:
+            Button(self.center_center_Frame, text = e, bg='#DDD', width = 30, command=lambda text=e : self.ret_texto(text)).grid(row=r, column=1) #Preciso definir o grid
+            r+=1
+        
+    def criando_frame(self):
+        a = 1
+        for k, v in condicoes.items():
+            Label(self.topFrame, text=k, bg='#88F', width = 18).grid(row=a, column=1) #Preciso definir o grid
+            Label(self.topFrame, text=v, bg='#F29', width = 18).grid(row=a, column=2)
+            a+=1
 
 class MyOptions(Frame):
         def __init__(self, master, elemento, coluna):
