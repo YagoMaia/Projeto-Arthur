@@ -60,60 +60,71 @@ class Mylabel(Frame):
 class Funcs():
     def ret_texto(self, text = "Foda"):
         print(text)
+        self.acoes.set(text)
 
-    def clicked(self,  bnt, event,):
-        btn_text = self.cget('text')
-        message = Label(root, text=f'You clicked button "{btn_text}".')
-        message.pack()
+    def clicked(self,btn_text):
+        #btn_text = self.cget('text')
+        #btn_text = btn_
+        print(btn_text)
+        self.acoes.set(btn_text)
+        #message.pack()
 
 class Main(Funcs):
     def __init__(self, master = None):
+        self.acoes = StringVar()
         self.root = root
-        self.largura = root.winfo_screenmmheight()
-        self.comprimento = root.winfo_screenmmwidth()    
+        self.altura = root.winfo_screenheight()
+        self.largura = root.winfo_screenwidth()/2
+        self.altura_quero = 600
+        self.largura_quero = 600
+        self.posx = self.largura/2 - self.largura_quero/2
+        self.posy = self.altura/2 - self.altura_quero/2
         self.dividindo_tela()
-        #self.criando_botoes()
+        self.criando_botoes()
         self.criando_frame()
         self.criando_botoes2()
+        #root.geometry("%dx%d+%d+%d" % (self.largura,self.altura,self.posx,self.posy))
         #root.configure(bg='black')
         root.mainloop()
+        
     
     def dividindo_tela(self):
-        self.topFrame = Frame(self.root, width = 1200 , height = 30 , bg = "blue")
+        self.topFrame = Frame(self.root, width = self.largura , height = self.altura/5, bg = "blue")
         self.topFrame.grid(row = 0, column = 0)
 
-        self.middleFrame = Frame(self.root, width = 1200, height = 600)
+        self.middleFrame = Frame(self.root, width = self.largura, height = self.altura/3)
         self.middleFrame.grid(row = 1, column = 0)
 
-        self.bottomFrame = Frame(self.root, width = 1200, height = 70, bg = "yellow")
+        self.bottomFrame = Frame(self.root, width = self.largura, height = self.altura/10, bg = "yellow")
         self.bottomFrame.grid(row = 2, column = 0)
 
-        self.leftFrame = Frame(self.middleFrame, width = 240, height = 600, bg = "gray")
+        self.leftFrame = Frame(self.middleFrame, width = self.largura/5, height = self.altura/3, bg = "gray")
         self.leftFrame.grid(row=1, column=0)
 
-        self.rightFrame = Frame(self.middleFrame, width = 240, height = 600, bg = "cyan")
+        self.rightFrame = Frame(self.middleFrame, width = self.largura/5, height = self.altura/3, bg = "cyan")
         self.rightFrame.grid(row=1, column=4)
 
-        self.center_rigth_Frame = Frame(self.middleFrame, width = 240, height = 600, bg = "red")
+        self.center_rigth_Frame = Frame(self.middleFrame, width = self.largura/5, height = self.altura/3, bg = "red")
         self.center_rigth_Frame.grid(row=1, column=3)
 
-        self.center_left_Frame = Frame(self.middleFrame, width = 240, height = 600, bg = "purple")
+        self.center_left_Frame = Frame(self.middleFrame, width = self.largura/5, height = self.altura/3, bg = "purple")
         self.center_left_Frame.grid(row=1, column=1)
 
-        self.center_center_Frame = Frame(self.middleFrame, width = 240, height = 600, bg = "black")
+        self.center_center_Frame = Frame(self.middleFrame, width = self.largura/5, height =  self.altura/3, bg = "black")
         self.center_center_Frame.grid(row=1, column=2)
 
     def criando_botoes(self):
         t1 = 'Teste'
-        self.btn1 = Button(self.center_center_Frame, text = t1, bg='#DDD', width = 30, command=lambda text=t1 : self.ret_texto(text)) #Preciso definir o grid
+        Label(self.rightFrame, textvariable=self.acoes, bg = "#Df9").grid(row=0,column=1)
+        Button(self.rightFrame, text = t1, bg='#DDD', width = 30, command=lambda btn_text = t1: self.clicked(btn_text)).grid(row=1,column=1) #Preciso definir o grid
         #self.btn1.bind("<Button-1>", )
-        self.btn1.pack()
 
-        t2 = 'Algo'
-        self.btn2 = Button(self.center_center_Frame, text=t2, bg='#DDD', width = 30, command=lambda text = t2 : self.ret_texto(text)) #Preciso definir o grid
-        #self.btn2.config(command= self.clicked(btn =self.btn2))
-        #self.btn2.bind("<Button-1>", self.ret_texto) #
-        self.btn2.pack()
+
+        #t2 = 'Algo'
+        #self.btn2 = Button(self.center_center_Frame, text=t2, bg='#DDD', width = 30, command=lambda text = t2 : self.ret_texto(text)) #Preciso definir o grid
+        ##self.btn2.config(command= self.clicked(btn =self.btn2))
+        ##self.btn2.bind("<Button-1>", self.ret_texto) #
+        #self.btn2.pack()
     
     def criando_botoes2(self):
         r = 1
@@ -131,6 +142,7 @@ class Main(Funcs):
         
     def criando_frame(self):
         a = 1
+        self.valor_btn = 'Olá'
         for k, v in condicoes.items():
             Label(self.topFrame, text=k, bg='#88F', width = 18).grid(row=a, column=1) #Preciso definir o grid
             Label(self.topFrame, text=v, bg='#F29', width = 18).grid(row=a, column=2)
@@ -154,7 +166,7 @@ class MyOptions(Frame):
 class Application(Tk):
     def __init__(self, master=None):
         master.title('Perguntas Medicina')
-        #master.geometry("350x350")
+        master.resizable(0,0)
         self.cont = 0
         self.top_frame = Frame(master)
         self.top_frame.pack(side=TOP)
