@@ -58,20 +58,23 @@ class Mylabel(Frame):
             Label(self, text=value, bg='#F29', width = 18).grid(row=0, column=2)
 
 class Funcs():
-    def ret_texto(self, text = "Foda"):
+    def ret_texto(self, text):
         print(text)
-        self.acoes.set(text)
+        self.acoes.set(f"Ação usada: {text}")
+        seg_rest = self.seg.get() - 1
+        self.seg.set(seg_rest)
+        self.mostra.set(f"Segundos Restantes: {seg_rest}")
 
     def clicked(self,btn_text):
-        #btn_text = self.cget('text')
-        #btn_text = btn_
         print(btn_text)
-        self.acoes.set(btn_text)
-        #message.pack()
+        self.acoes.set(f"Ação usada: {btn_text}")
+
 
 class Main(Funcs):
     def __init__(self, master = None):
         self.acoes = StringVar()
+        self.seg = IntVar()
+        self.mostra = StringVar()
         self.root = root
         self.altura = root.winfo_screenheight()
         self.largura = root.winfo_screenwidth()/2
@@ -80,7 +83,7 @@ class Main(Funcs):
         self.posx = self.largura/2 - self.largura_quero/2
         self.posy = self.altura/2 - self.altura_quero/2
         self.dividindo_tela()
-        self.criando_botoes()
+        #self.criando_botoes()
         self.criando_frame()
         self.criando_botoes2()
         #root.geometry("%dx%d+%d+%d" % (self.largura,self.altura,self.posx,self.posy))
@@ -113,10 +116,10 @@ class Main(Funcs):
         self.center_center_Frame = Frame(self.middleFrame, width = self.largura/5, height =  self.altura/3, bg = "black")
         self.center_center_Frame.grid(row=1, column=2)
 
-    def criando_botoes(self):
-        t1 = 'Teste'
-        Label(self.rightFrame, textvariable=self.acoes, bg = "#Df9").grid(row=0,column=1)
-        Button(self.rightFrame, text = t1, bg='#DDD', width = 30, command=lambda btn_text = t1: self.clicked(btn_text)).grid(row=1,column=1) #Preciso definir o grid
+    #def criando_botoes(self):
+        #t1 = 'Teste'
+        #Label(self.rightFrame, textvariable=self.acoes, bg = "#Df9").grid(row=0,column=1)
+        #Button(self.rightFrame, text = t1, bg='#DDD', width = 30, command=lambda btn_text = t1: self.clicked(btn_text)).grid(row=1,column=1) #Preciso definir o grid
         #self.btn1.bind("<Button-1>", )
 
 
@@ -142,11 +145,14 @@ class Main(Funcs):
         
     def criando_frame(self):
         a = 1
-        self.valor_btn = 'Olá'
+        self.seg.set(100)
+        Label(self.topFrame, textvariable=self.mostra, bg='#8FF', width = 18, font=(19)).grid(row=0, columnspan=2)
+        Label(self.topFrame, text="Quadro Número 1 - 45%", bg='#88F', width = 18, font=(19)).grid(row=1, columnspan=2)
         for k, v in condicoes.items():
-            Label(self.topFrame, text=k, bg='#88F', width = 18).grid(row=a, column=1) #Preciso definir o grid
-            Label(self.topFrame, text=v, bg='#F29', width = 18).grid(row=a, column=2)
+            Label(self.topFrame, text=k, bg='#88F', width = 18, font=(19)).grid(row=a, column=0) #Preciso definir o grid
+            Label(self.topFrame, text=v, bg='#F29', width = 18, font=(19)).grid(row=a, column=1)
             a+=1
+        Label(self.topFrame, textvariable=self.acoes, bg = "#Df9", font = (19)).grid(row=a+1,columnspan=2)
 
 class MyOptions(Frame):
         def __init__(self, master, elemento, coluna):
