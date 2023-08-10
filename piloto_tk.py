@@ -59,27 +59,53 @@ class Mylabel(Frame):
 
 class Funcs():
     def ret_texto(self, text):
-        print(text)
+        #print(text)
         self.acoes.set(f"Ação usada: {text}")
-        seg_rest = self.seg.get() - 1
-        self.seg.set(seg_rest)
-        self.mostra.set(f"Segundos Restantes: {seg_rest}")
+        #lista_procedimentos = self.q1[f"P{self.tentativas.get()}"]
+        #print(lista_procedimentos)
+        #tentativas_totais = self.tentativas.get() + 1
+        #self.tentativas.set(tentativas_totais)
+        #self.mostra.set(f"Segundos Restantes: {tentativas_totais}")
+        self.salvamento(text)
+        
 
     def clicked(self,btn_text):
         print(btn_text)
         self.acoes.set(f"Ação usada: {btn_text}")
 
+    def salvamento(self, acao):
+        print(self.tentativas.get())
+        valido = True
+        if (self.tentativas.get()) == 4:
+            self.root.destroy()
+            valido = False
+        if(valido):
+            lista_procedimentos = self.q1[f"P{self.tentativas.get()}"]
+            self.procedimentos_usados.append(acao)
+            if len(lista_procedimentos) == len(self.procedimentos_usados):
+                print(lista_procedimentos)
+                print(self.procedimentos_usados)
+                self.procedimentos_usados = []
+                tentativas_totais = self.tentativas.get() + 1
+                self.tentativas.set(tentativas_totais)
+                self.mostra.set(f"Quantidade de Tentativas: {tentativas_totais}")
+
 
 class Main(Funcs):
     def __init__(self, master = None):
         self.acoes = StringVar()
-        self.seg = IntVar()
+        self.tentativas = IntVar()
         self.mostra = StringVar()
         self.root = root
         self.altura = root.winfo_screenheight()
         self.largura = root.winfo_screenwidth()/2
         self.altura_quero = 600
         self.largura_quero = 600
+        self.procedimentos_usados = []
+        self.q1 = {"P0": ["Compressão torácica por 2 minutos", "Ventilação com AMBU", "Desfibrilação", "Adrenalina"],
+        "P1": ["Compressão torácica por 2 minutos", "Desfibrilação", "Amiodarona"],
+        "P2":["Compressão torácica por 2 minutos", "Desfibrilação", "Adrenalina"],
+        "P3": ["Compressão torácica por 2 minutos", "Desfibrilação", "Amiodarona"]}
         self.posx = self.largura/2 - self.largura_quero/2
         self.posy = self.altura/2 - self.altura_quero/2
         self.dividindo_tela()
@@ -145,9 +171,9 @@ class Main(Funcs):
         
     def criando_frame(self):
         a = 1
-        self.seg.set(100)
-        Label(self.topFrame, textvariable=self.mostra, bg='#8FF', width = 18, font=(19)).grid(row=0, columnspan=2)
-        Label(self.topFrame, text="Quadro Número 1 - 45%", bg='#88F', width = 18, font=(19)).grid(row=1, columnspan=2)
+        self.tentativas.set(0)
+        Label(self.topFrame, textvariable=self.mostra, bg='#8FF', font=(19)).grid(row=0, columnspan=2)
+        Label(self.topFrame, text="Quadro Número 1 - 45%", bg='#88F', font=(19)).grid(row=1, columnspan=2)
         for k, v in condicoes.items():
             Label(self.topFrame, text=k, bg='#88F', width = 18, font=(19)).grid(row=a, column=0) #Preciso definir o grid
             Label(self.topFrame, text=v, bg='#F29', width = 18, font=(19)).grid(row=a, column=1)

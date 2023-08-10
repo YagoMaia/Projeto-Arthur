@@ -65,6 +65,10 @@ class Q1():
         self.lp1_q2 = ["Compressão torácica por 2 minutos", "Desfibrilação", "Amiodarona"],
         self.lp1_q3 = ["Compressão torácica por 2 minutos", "Desfibrilação", "Adrenalina"],
         self.lp1_q4 = ["Compressão torácica por 2 minutos", "Desfibrilação", "Amiodarona"]
+        self.q1 = {"P1": ["Compressão torácica por 2 minutos", "Ventilação com AMBU", "Desfibrilação", "Adrenalina"],
+        "P2": ["Compressão torácica por 2 minutos", "Desfibrilação", "Amiodarona"],
+        "P3":["Compressão torácica por 2 minutos", "Desfibrilação", "Adrenalina"],
+        "P4": ["Compressão torácica por 2 minutos", "Desfibrilação", "Amiodarona"]}
     
     def loop(self, proc : list):
         acertos = 0
