@@ -231,7 +231,15 @@ class Application(Tk):
 #        self.widget2.grid()
 #        self.q = Label(self.widget2, text='Quadro 1').grid(row=0,column=1)
 root = Tk()
-Main(root)
+#for b in range(0, 2):
+#    Mylabel(root, "key", "Value").pack(expand=True, fill='x')
+Main(root).pack()
+
+
+#--Pode ser que não tenha dado certo por fiz a divisão dos grids
+#for b in range(0, 2):
+#    Mylabel(root, "key", "Value").pack(expand=True, fill='x')
+#Main(root).pack()
 #for b in range(0, len(listona)):
 #    sub = listona[b]
 #    for e in range(0, len(sub)):
@@ -239,4 +247,4 @@ Main(root)
 #
 #Application(root)
 #Teste(root)
-#root.mainloop()
+root.mainloop()
