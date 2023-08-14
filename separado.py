@@ -31,19 +31,24 @@ Exames = ["Hemoglobina",
 "ECG"]
 
 class Funcs():
+    q1 = {"P0": ["Compressão torácica por 2 minutos", "Ventilação com AMBU", "Desfibrilação", "Adrenalina"],
+        "P1": ["Compressão torácica por 2 minutos", "Desfibrilação", "Amiodarona"],
+        "P2":["Compressão torácica por 2 minutos", "Desfibrilação", "Adrenalina"],
+        "P3": ["Compressão torácica por 2 minutos", "Desfibrilação", "Amiodarona"]}
+    
     def ret_texto(self, text):
-        self.acoes.set(f"Ação usada: {text}")
+        self.mostra.set(f"Ação usada: {text}")
         self.salvamento(text)
         
     def clicked(self,btn_text):
         print(btn_text)
-        self.acoes.set(f"Ação usada: {btn_text}")
+        self.mostra.set(f"Ação usada: {btn_text}")
 
     def salvamento(self, acao):
         print(self.tentativas.get())
         valido = True
         if (self.tentativas.get()) == 4:
-            self.root.destroy()
+            self.master.destroy()
             valido = False
         if(valido):
             lista_procedimentos = self.q1[f"P{self.tentativas.get()}"]
@@ -66,31 +71,32 @@ class BigLabel(Frame):
 class Mylabel(Frame):
         def __init__(self, master, key, value):
             Frame.__init__(self, master, background = "#666")
-            Label(self, text=key, bg='#88F', width = 20, font = 19).grid(row=0,column=1)
-            Label(self, text=value, bg='#F29', width = 20, font = 19).grid(row=0,column=2)
+            Label(self, text=key, bg='#88F', width = 20, font = 19).pack(side = LEFT)
+            Label(self, text=value, bg='#F29', width = 20, font = 19).pack(side = RIGHT)
 
-class Buttons(Frame):
+class Buttons(Frame, Funcs):
     def __init__(self, master):
         Frame.__init__(self, master, background= "#D23")
+        self.procedimentos_usados = []
         self.mostra = StringVar()
+        self.tentativas = IntVar()
         Label(self, textvariable=self.mostra, bg='#8FF', font=(19)).grid(row=0, columnspan=5)
+        Label(self, textvariable=self.tentativas, bg='#24D', font=(19)).grid(row=1, columnspan=5)
         for procedimento in range(0, len(Procedimentos)):
             p = Procedimentos[procedimento]
-            Button(self, text = p, bg='#DDD', width = 30, command=lambda text=p : self.ret_texto(text)).grid(row=procedimento+1, column=1) #Preciso definir o grid
+            Button(self, text = p, bg='#DDD', width = 30, command=lambda text=p : self.ret_texto(text)).grid(row=procedimento+2, column=1) #Preciso definir o grid
         for medicamento in range(0,len(Medicações)):
             m = Medicações[medicamento]
-            Button(self, text = m, bg='#DDD', width = 30, command=lambda text=m : self.ret_texto(text)).grid(row=medicamento+1, column=2) #Preciso definir o grid
+            Button(self, text = m, bg='#DDD', width = 30, command=lambda text=m : self.ret_texto(text)).grid(row=medicamento+2, column=2) #Preciso definir o grid
         for exame in range(0,len(Exames)):
             e = Exames[exame]
-            Button(self, text = e, bg='#DDD', width = 30, command=lambda text=e : self.ret_texto(text)).grid(row=exame+1, column=3) #Preciso definir o grid
+            Button(self, text = e, bg='#DDD', width = 30, command=lambda text=e : self.ret_texto(text)).grid(row=exame+2, column=3) #Preciso definir o grid
 
-    def ret_texto(self, text):
-        self.mostra.set(f"Ação usada: {text}")
 
 root = Tk()
 BigLabel(root).pack(expand=True, fill='x', anchor="center")
 for k, v in condicoes.items():
-    Mylabel(root, k, v).pack(expand=True)
-Buttons(root).pack(expand=True, fill='x')
+    Mylabel(root, k, v).pack(expand=True, fill="y")
+Buttons(root).pack(expand=True)
 
 root.mainloop()
