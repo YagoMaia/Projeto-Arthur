@@ -30,42 +30,15 @@ Exames = ["Hemoglobina",
 "Raio X de tórax",
 "ECG"]
 
-
-listona = [Procedimentos, Medicações]
-
-#def mudarTexto(event):
-#    if self.msg["text"] == "Sei lá":
-#        self.msg["text"] = "O botão recebeu um clique"
-#    else:
-#        self.msg["text"] = "Sei lá"
-#app = Tk()
-#
-#frm = ttk.Frame(app, padding = 10)
-#frm.grid()
-#ttk.Label(frm, text='Hello World').grid(column=0, row = 0)
-#ttk.Button(frm, text='Destoy', command=app.destroy).grid(column=1, row =0)
-#ttk.Button(frm, text='Teste' ).grid(column=2, row =0)
-#teste = ttk.Button(frm, text='Sei lá').grid(column=1, row =1)
-#teste.bind('<Button-1>', mudarTexton)
-#app.mainloop()
 class Mylabel(Frame):
         def __init__(self, master, key, value):
             Frame.__init__(self, master, background = "#666")
-            #Place usa cordenadas
-            #Grig usa o esquema de linha e colunas
-            #Pack usa Lados
             Label(self, text=key, bg='#88F', width = 18).grid(row=0, column=1) #Preciso definir o grid
             Label(self, text=value, bg='#F29', width = 18).grid(row=0, column=2)
 
 class Funcs():
     def ret_texto(self, text):
-        #print(text)
         self.acoes.set(f"Ação usada: {text}")
-        #lista_procedimentos = self.q1[f"P{self.tentativas.get()}"]
-        #print(lista_procedimentos)
-        #tentativas_totais = self.tentativas.get() + 1
-        #self.tentativas.set(tentativas_totais)
-        #self.mostra.set(f"Segundos Restantes: {tentativas_totais}")
         self.salvamento(text)
         
 
@@ -109,11 +82,8 @@ class Main(Funcs):
         self.posx = self.largura/2 - self.largura_quero/2
         self.posy = self.altura/2 - self.altura_quero/2
         self.dividindo_tela()
-        #self.criando_botoes()
         self.criando_frame()
         self.criando_botoes2()
-        #root.geometry("%dx%d+%d+%d" % (self.largura,self.altura,self.posx,self.posy))
-        #root.configure(bg='black')
         root.mainloop()
         
     
@@ -141,19 +111,6 @@ class Main(Funcs):
 
         self.center_center_Frame = Frame(self.middleFrame, width = self.largura/5, height =  self.altura/3, bg = "black")
         self.center_center_Frame.grid(row=1, column=2)
-
-    #def criando_botoes(self):
-        #t1 = 'Teste'
-        #Label(self.rightFrame, textvariable=self.acoes, bg = "#Df9").grid(row=0,column=1)
-        #Button(self.rightFrame, text = t1, bg='#DDD', width = 30, command=lambda btn_text = t1: self.clicked(btn_text)).grid(row=1,column=1) #Preciso definir o grid
-        #self.btn1.bind("<Button-1>", )
-
-
-        #t2 = 'Algo'
-        #self.btn2 = Button(self.center_center_Frame, text=t2, bg='#DDD', width = 30, command=lambda text = t2 : self.ret_texto(text)) #Preciso definir o grid
-        ##self.btn2.config(command= self.clicked(btn =self.btn2))
-        ##self.btn2.bind("<Button-1>", self.ret_texto) #
-        #self.btn2.pack()
     
     def criando_botoes2(self):
         r = 1
@@ -183,9 +140,6 @@ class Main(Funcs):
 class MyOptions(Frame):
         def __init__(self, master, elemento, coluna):
             Frame.__init__(self, master)
-            #Place usa cordenadas
-            #Grig usa o esquema de linha e colunas
-            #Pack usa Lados
             self.btn = Button(self, text=elemento, bg='#DDD', width = 30) #Preciso definir o grid
             self.btn.bind("<Button-1>", self.ret_texto)
             self.btn.pack()
@@ -217,7 +171,6 @@ class Application(Tk):
         self.btn1.pack(side = LEFT)
         self.btn2 = Button(self.widget1, text='BTN2', width=10)
         self.btn2.pack(side =LEFT)
-        #self.teste = self.criar_texto()
 
     def mudarTexto(self, event):
         if self.cont == 3:
@@ -225,26 +178,7 @@ class Application(Tk):
             self.cont = 0
         self.cont += 1
     
-#class Teste(Frame):
-#    def __init__(self,master):
-#        self.widget2 = Frame(master)
-#        self.widget2.grid()
-#        self.q = Label(self.widget2, text='Quadro 1').grid(row=0,column=1)
 root = Tk()
-#for b in range(0, 2):
-#    Mylabel(root, "key", "Value").pack(expand=True, fill='x')
 Main(root).pack()
 
-
-#--Pode ser que não tenha dado certo por fiz a divisão dos grids
-#for b in range(0, 2):
-#    Mylabel(root, "key", "Value").pack(expand=True, fill='x')
-#Main(root).pack()
-#for b in range(0, len(listona)):
-#    sub = listona[b]
-#    for e in range(0, len(sub)):
-#        MyOptions(root, sub[e], b).pack()
-#
-#Application(root)
-#Teste(root)
 root.mainloop()
