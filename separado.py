@@ -60,14 +60,14 @@ class BigLabel(Frame):
     def __init__(self, master):
         self.quadro = StringVar()
         self.quadro.set(f"Quadro 1 - 45% ocorrência")
-        Frame.__init__(self, master, background= "#AFA")
-        Label(self, textvariable=self.quadro, background="#AFA", font=19, width=50).grid(row=0, columnspan= 2)
+        Frame.__init__(self, master, background= "#AFA",)
+        Label(self, textvariable=self.quadro, background="#FFF", font=19, width=30).pack()
 
 class Mylabel(Frame):
         def __init__(self, master, key, value):
             Frame.__init__(self, master, background = "#666")
-            Label(self, text=key, bg='#88F', width = 25).grid(row=0,column=1)
-            Label(self, text=value, bg='#F29', width = 25).grid(row=0,column=2)
+            Label(self, text=key, bg='#88F', width = 20, font = 19).grid(row=0,column=1)
+            Label(self, text=value, bg='#F29', width = 20, font = 19).grid(row=0,column=2)
 
 class Buttons(Frame):
     def __init__(self, master):
@@ -88,9 +88,9 @@ class Buttons(Frame):
         self.mostra.set(f"Ação usada: {text}")
 
 root = Tk()
-BigLabel(root).pack(expand=True, fill='x',)
+BigLabel(root).pack(expand=True, fill='x', anchor="center")
 for k, v in condicoes.items():
-    Mylabel(root, k, v).pack(expand=True, fill="x", padx=149)
+    Mylabel(root, k, v).pack(expand=True)
 Buttons(root).pack(expand=True, fill='x')
 
 root.mainloop()
