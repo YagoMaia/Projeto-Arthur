@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import ttk
+from tkinter import messagebox
 
 condicoes = {
         'Pressão Arterial': 0, 
@@ -48,6 +49,7 @@ class Funcs():
         print(self.tentativas.get())
         valido = True
         if (self.tentativas.get()) == 4:
+            messagebox.showinfo("Estado do Paciente", "Todos os procedimentos foram feitos")
             self.master.destroy()
             valido = False
         if(valido):
