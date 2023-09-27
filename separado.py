@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
+import time
 
 condicoes = {
         'Pressão Arterial': 0, 
@@ -67,23 +68,34 @@ class BigLabel(Frame):
     def __init__(self, master):
         self.quadro = StringVar()
         self.quadro.set(f"Quadro 1 - 45% ocorrência")
-        Frame.__init__(self, master, background= "#AFA",)
-        Label(self, textvariable=self.quadro, background="#FFF", font=19, width=30).pack()
+        Frame.__init__(self, master, )
+        Label(self, textvariable=self.quadro, font=19, width=30).pack()
+
+class Contador(Frame):
+    def __init__(self, master):
+        self.quadro = StringVar()
+        self.segundos_totais = 120
+        self.min = self.segundos_totais//60
+        self.seg = self.segundos_totais%60
+        self.quadro.set(f"{self.min}:{self.seg:2}")
+        Frame.__init__(self, master, )
+        Label(self, textvariable=self.quadro, font=19, width=30).pack()
+
 
 class Mylabel(Frame):
         def __init__(self, master, key, value):
-            Frame.__init__(self, master, background = "#666")
-            Label(self, text=key, bg='#88F', width = 20, font = 19).pack(side = LEFT)
-            Label(self, text=value, bg='#F29', width = 20, font = 19).pack(side = RIGHT)
+            Frame.__init__(self, master,)
+            Label(self, text=key, width = 20, font = 19).pack(side = LEFT)
+            Label(self, text=value, width = 20, font = 19).pack(side = RIGHT)
 
 class Buttons(Frame, Funcs):
     def __init__(self, master):
-        Frame.__init__(self, master, background= "#D23")
+        Frame.__init__(self, master)
         self.procedimentos_usados = []
         self.mostra = StringVar()
         self.tentativas = IntVar()
-        Label(self, textvariable=self.mostra, bg='#8FF', font=(19)).grid(row=0, columnspan=5)
-        Label(self, textvariable=self.tentativas, bg='#24D', font=(19)).grid(row=1, columnspan=5)
+        Label(self, textvariable=self.mostra, font=(19)).grid(row=0, columnspan=5)
+        Label(self, textvariable=self.tentativas, font=(19)).grid(row=1, columnspan=5)
         for procedimento in range(0, len(Procedimentos)):
             p = Procedimentos[procedimento]
             Button(self, text = p, bg='#DDD', width = 30, command=lambda text=p : self.ret_texto(text)).grid(row=procedimento+2, column=1) #Preciso definir o grid
@@ -97,6 +109,7 @@ class Buttons(Frame, Funcs):
 
 root = Tk()
 BigLabel(root).pack(expand=True, fill='x', anchor="center")
+Contador(root).pack(expand=True, fill='x', anchor="center")
 for k, v in condicoes.items():
     Mylabel(root, k, v).pack(expand=True, fill="y")
 Buttons(root).pack(expand=True)
