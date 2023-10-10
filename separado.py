@@ -57,7 +57,6 @@ class Funcs():
     def salvamento(self, acao):
         valido = True
         if (self.tentativas.get()) == 4:
-            messagebox.showinfo("Estado do Paciente", "Todos os procedimentos foram feitos")
             self.master.destroy()
             valido = False
         if(valido):
@@ -89,17 +88,18 @@ class BigLabel(Frame):
     def __init__(self, master):
         self.quadro = StringVar()
         self.quadro.set(f"Quadro 1 - 45% ocorrência")
-        Frame.__init__(self, master)
-        Label(self, textvariable=self.quadro, font=19, width=30).pack()
+        Frame.__init__(self, master, background= "#AFA",)
+        Label(self, textvariable=self.quadro, background="#FFF", font=19, width=30).pack()
 
 class Mylabel(Frame):
         def __init__(self, master, key, value):
-            Frame.__init__(self, master, background = "#666")
-            Label(self, text=key, bg='#88F', width = 20, font = 19).pack(side = LEFT)
-            Label(self, text=value, bg='#F29', width = 20, font = 19).pack(side = RIGHT)
+            Frame.__init__(self, master,)
+            Label(self, text=key, width = 20, font = 19).pack(side = LEFT)
+            Label(self, text=value, width = 20, font = 19).pack(side = RIGHT)
 
 class Buttons(Frame, Funcs):
     def __init__(self, master):
+        Frame.__init__(self, master)
         Frame.__init__(self, master)
         self.procedimentos_usados = []
         self.timer = StringVar()
@@ -123,6 +123,7 @@ class Buttons(Frame, Funcs):
 
 root = Tk()
 BigLabel(root).pack(expand=True, fill='x', anchor="center")
+Contador(root).pack(expand=True, fill='x', anchor="center")
 for k, v in condicoes.items():
     Mylabel(root, k, v).pack(expand=True, fill="y")
 
