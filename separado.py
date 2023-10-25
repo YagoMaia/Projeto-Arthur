@@ -4,39 +4,13 @@ from tkinter import messagebox
 import time
 from random import randint
 
-condicoes_quadros = [{
-        'Pressão Arterial': 0, 
-        'Frequência Cardíaca':0, 
-        'Frequência Respiratória': 0, 
-        'Saturação de Oxigênio': 0, 
-        'Monitor ECG' : 'Fibrilação Ventricular',
-        'Conciencia' : 'Inconsciente'
-        }, {
-        'Pressão Arterial': 0, 
-        'Frequência Cardíaca':0, 
-        'Frequência Respiratória': 0, 
-        'Saturação de Oxigênio': 0, 
-        'Monitor ECG' : 'Torsades de pointes',
-        'Conciencia' : 'Inconsciente'
-        },
-        {
-        'Pressão Arterial': 0, 
-        'Frequência Cardíaca':0, 
-        'Frequência Respiratória': 0, 
-        'Saturação de Oxigênio': 0, 
-        'Monitor ECG' : 'Assistolia',
-        'Conciencia' : 'Inconsciente'
-        }]
 Procedimentos = ["Compressão torácica por 2 minutos", "Ventilação com AMBU", "Desfibrilação", "Toracocentese de alívio", "Pericardiocentese", "Intubação orotraqueal"]
 Medicações = ["Adrenalina", "Amiodarona", "Sulfato de magnésio", "Glucanato de cálcio", "Glico-insulina", "Bicarbonato de sódio", "Soro fisiológico", "Ringer lactato", "Cloreto de potássio"]
 Exames = ["Hemoglobina", "Leucograma", "Plaquetas", "Uréia", "Creatinina", "Potássio", "Sódio", "Magnésio", "Proteína C reativa", "Lactato", "pH", "Pco2", "Po2", "HCO3", "Base excess", "Saturação do oxigênio", "Raio X de tórax", "ECG"]
 
-quadros = [{"Quadro Clinico": "Quadro 1 - 45% dos casos", "Probabilidades":[2,2,2,1], "Procedimentos_salvamento": {"P0": ["Compressão torácica por 2 minutos", "Ventilação com AMBU", "Desfibrilação", "Adrenalina"],
-        "P1": ["Compressão torácica por 2 minutos", "Desfibrilação", "Amiodarona"],
-        "P2":["Compressão torácica por 2 minutos", "Desfibrilação", "Adrenalina"],
-        "P3": ["Compressão torácica por 2 minutos", "Desfibrilação", "Amiodarona"]}},
-        {"Quadro Clinico": "Quadro 2 - 10% dos casos", "Probabilidades":[1], "Procedimentos_salvamento":{"P0": ["Compressão torácica por 2 minutos", "Ventilação com AMBU", "Desfibrilação", "Sulfato de magnésio"]}},
-        {"Quadro Clinico": "Quadro 3 - 45% dos casos", "Probabilidades":[1], "Procedimentos_salvamento": {"P0": ["Compressão torácica por 2 minutos", "Ventilação com AMBU", "Adrenalina"]}}]
+quadros = [{"Quadro Clinico": "Quadro 1 - 45% dos casos", "Probabilidades":[2,2,2,1], "Procedimentos_salvamento": {"P0": ["Compressão torácica por 2 minutos", "Ventilação com AMBU", "Desfibrilação", "Adrenalina"],"P1": ["Compressão torácica por 2 minutos", "Desfibrilação", "Amiodarona"],"P2":["Compressão torácica por 2 minutos", "Desfibrilação", "Adrenalina"],"P3": ["Compressão torácica por 2 minutos", "Desfibrilação", "Amiodarona"]}, "Condições Quadros": {'Pressão Arterial': 0, 'Frequência Cardíaca':0, 'Frequência Respiratória': 0, 'Saturação de Oxigênio': 0, 'Monitor ECG' : 'Fibrilação Ventricular','Conciencia' : 'Inconsciente'}},
+        {"Quadro Clinico": "Quadro 2 - 10% dos casos", "Probabilidades":[1], "Procedimentos_salvamento":{"P0": ["Compressão torácica por 2 minutos", "Ventilação com AMBU", "Desfibrilação", "Sulfato de magnésio"]}, "Condições Quadros": {'Pressão Arterial': 0, 'Frequência Cardíaca':0, 'Frequência Respiratória': 0, 'Saturação de Oxigênio': 0, 'Monitor ECG' : 'Torsades de pointes','Conciencia' : 'Inconsciente'}},
+        {"Quadro Clinico": "Quadro 3 - 45% dos casos", "Probabilidades":[1], "Procedimentos_salvamento": {"P0": ["Compressão torácica por 2 minutos", "Ventilação com AMBU", "Adrenalina"]},"Condições Quadros": {'Pressão Arterial': 0, 'Frequência Cardíaca':0, 'Frequência Respiratória': 0, 'Saturação de Oxigênio': 0, 'Monitor ECG' : 'Assistolia','Conciencia' : 'Inconsciente'}}]
 
 procedimento_escolhido = randint(0, 2)
 quadro_select = quadros[procedimento_escolhido]
@@ -162,11 +136,10 @@ class Buttons(Frame, Funcs):
         for exame in range(0,len(Exames)):
             e = Exames[exame]
             Button(self, text = e, bg='#DDD', width = 30, command=lambda text=e : self.ret_texto(text)).grid(row=exame+3, column=3) #Preciso definir o grid
-#funcs = Funcsself
 root = Tk()
 timer = Counter()
 BigLabel(root).pack(expand=True, fill='x', anchor="center")
-for k, v in condicoes_quadros[procedimento_escolhido].items():
+for k, v in quadro_select["Condições Quadros"].items():
     Mylabel(root, k, v).pack(expand=True, fill="y")
 
 Buttons(root).pack(expand=True)
