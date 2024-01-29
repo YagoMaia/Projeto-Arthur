@@ -3,6 +3,7 @@ from tkinter import ttk
 from tkinter import messagebox
 import time
 from random import randint
+from dados import planilha
 
 Procedimentos = ["Compressão torácica por 2 minutos", "Ventilação com AMBU", "Desfibrilação", "Toracocentese de alívio", "Pericardiocentese", "Intubação orotraqueal"]
 Medicações = ["Adrenalina", "Amiodarona", "Sulfato de magnésio", "Glucanato de cálcio", "Glico-insulina", "Bicarbonato de sódio", "Soro fisiológico", "Ringer lactato", "Cloreto de potássio"]
@@ -13,7 +14,7 @@ quadros = [{"Quadro Clinico": "Quadro 1 - 45% dos casos", "Probabilidades":[2,2,
         {"Quadro Clinico": "Quadro 3 - 45% dos casos", "Probabilidades":[1], "Procedimentos_salvamento": {"P0": ["Compressão torácica por 2 minutos", "Ventilação com AMBU", "Adrenalina"]},"Condições Quadros": {'Pressão Arterial': 0, 'Frequência Cardíaca':0, 'Frequência Respiratória': 0, 'Saturação de Oxigênio': 0, 'Monitor ECG' : 'Assistolia','Conciencia' : 'Inconsciente'}}]
 
 procedimento_escolhido = randint(0, 2)
-quadro_select = quadros[procedimento_escolhido]
+quadro_select = planilha['Quadros'][procedimento_escolhido]
 cont_tent = 0
 
 class Funcs():
@@ -127,14 +128,14 @@ class Buttons(Frame, Funcs):
         Label(self, textvariable=self.timer, bg='#8AD', font=(19)).grid(row=0, columnspan=5)
         Label(self, textvariable=self.mostra, bg='#8FF', font=(19)).grid(row=1, columnspan=5)
         self.countdown(1200)
-        for procedimento in range(0, len(Procedimentos)):
-            p = Procedimentos[procedimento]
+        for procedimento in range(0, len(planilha['Procedimentos'])):
+            p = planilha['Procedimentos'][procedimento]
             Button(self, text = p, bg='#DDD', width = 30, command=lambda text=p : self.ret_texto(text)).grid(row=procedimento+3, column=1) #Preciso definir o grid
-        for medicamento in range(0,len(Medicações)):
-            m = Medicações[medicamento]
+        for medicamento in range(0,len(planilha['Medicações'])):
+            m = planilha['Medicações'][medicamento]
             Button(self, text = m, bg='#DDD', width = 30, command=lambda text=m : self.ret_texto(text)).grid(row=medicamento+3, column=2) #Preciso definir o grid
-        for exame in range(0,len(Exames)):
-            e = Exames[exame]
+        for exame in range(0,len(planilha['Exames'])):
+            e = planilha['Exames'][exame]
             Button(self, text = e, bg='#DDD', width = 30, command=lambda text=e : self.ret_texto(text)).grid(row=exame+3, column=3) #Preciso definir o grid
 root = Tk()
 timer = Counter()
