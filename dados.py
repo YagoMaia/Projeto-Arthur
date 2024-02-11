@@ -29,7 +29,8 @@ planilha = {
                 'Frequência Respiratória': 0, 
                 'Saturação de Oxigênio': 0, 
                 'Monitor ECG' : 'Fibrilação Ventricular',
-                'Conciencia' : 'Inconsciente'},
+                'Conciencia' : 'Inconsciente'
+            },
             "Condiçoes":{
                 "Ação": "Amiodarona",
                 "Perda_tempo":120
@@ -50,7 +51,8 @@ planilha = {
                 'Frequência Respiratória': 0, 
                 'Saturação de Oxigênio': 0, 
                 'Monitor ECG' : 'Torsades de pointes',
-                'Conciencia' : 'Inconsciente'},
+                'Conciencia' : 'Inconsciente'
+            },
             "Caso_especial":[]
         },
         {
@@ -72,9 +74,6 @@ planilha = {
                 },
             "Caso_especial":
             [
-                {
-                    "Extra":"Nada"
-                },
                 {
                     "Extra": "Hiperpotassemia",
                     "P0": ["Compressão torácica por 2 minutos", "Ventilação com AMBU", "Adrenalina", "Verificar Painel", "Tratar Alteração","Glucanato de cálcio", "Glico-insulina", "Bicarbonato de sódio"]
